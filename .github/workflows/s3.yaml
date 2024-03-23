@@ -12,7 +12,7 @@ jobs:
       id-token: write
       contents: read
     env:
-      CF_DIST_ID: 
+      CF_DIST_ID: E45VIIVVR00J2
       ROLE: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/CICDS3Portfolio
       BUCKET: pathfinding-pathfinding-prod 
     steps:
