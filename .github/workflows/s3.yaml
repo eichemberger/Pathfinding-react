@@ -26,12 +26,6 @@ jobs:
           role-to-assume: ${{ env.ROLE }}
           aws-region: us-east-1
 
-      - name: CodeGuru Reviewer
-        uses: aws-actions/codeguru-reviewer@v1.1
-        with:
-          build_path: dist # build artifact(s) directory
-          s3_bucket: codeguru-reviewer-dummy-eichemberger
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -42,6 +36,12 @@ jobs:
 
       - name: build
         run: npm run build
+
+      - name: CodeGuru Reviewer
+        uses: aws-actions/codeguru-reviewer@v1.1
+        with:
+          build_path: dist # build artifact(s) directory
+          s3_bucket: codeguru-reviewer-dummy-eichemberger
 
       - name: Deploy to AWS S3
         run: aws s3 sync ./dist s3://${{ env.BUCKET }} --delete
