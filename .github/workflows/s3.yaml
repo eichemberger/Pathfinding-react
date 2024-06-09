@@ -17,12 +17,20 @@ jobs:
       BUCKET: pathfinding-pathfinding-prod 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: set up aws credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ env.ROLE }}
           aws-region: us-east-1
+
+      - name: CodeGuru Reviewer
+        uses: aws-actions/codeguru-reviewer@v1.1
+        with:
+          build_path: dist # build artifact(s) directory
+          s3_bucket: codeguru-reviewer-dummy-eichemberger
 
       - uses: actions/setup-node@v4
         with:
